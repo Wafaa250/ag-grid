@@ -24,10 +24,21 @@ function App() {
   ]);
 
   //duplicate
-  const duplicateRow = (rowToCopy: RowData) => {
-    const newRow = { ...rowToCopy };
-    setRowData((prev) => [...prev, newRow]);
-  };
+const duplicateRow = (rowToCopy: RowData) => {
+  setRowData((prev) => {
+    const index = prev.findIndex((row) => row === rowToCopy);
+
+    const newRow = {
+      ...rowToCopy,
+      name: rowToCopy.name + " (copy)"
+    };
+
+    const newData = [...prev];
+    newData.splice(index + 1, 0, newRow);
+
+    return newData;
+  });
+};
   // delete
 const deleteRow = (rowToDelete: RowData) => {
   setRowData((prev) => prev.filter((row) => row !== rowToDelete));
